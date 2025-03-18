@@ -1,0 +1,239 @@
+/* Global reset for margin, padding, and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Main container with flex layout */
+.container {
+  display: flex;
+  background-color: #fff;
+  width: 900px;
+  height: 1000px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Left content styling */
+.left-content {
+  width: 330px;
+  background-color: #333; /* Dark Background */
+  color: #fff; /* White text */
+  padding: 40px 32px;
+  position: relative;
+}
+
+/* Profile image styling */
+.left-content img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin-bottom: 40px;
+  border: 2px solid #ffa500; /* Orange border */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Text styling inside left content */
+.left-content h1,
+.left-content h2,
+.left-content h3,
+.left-content p {
+  color: #fff; /* White text for subheadings */
+}
+
+.left-content h1 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.left-content h2 {
+  font-size: 20px;
+  color: white; /* Highlighted color for headings */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.left-content h3 {
+  font-size: 18px;
+}
+
+.divider {
+  border-top: 1px solid #444; /* Divider line */
+  margin: 15px 0;
+}
+
+/* Contact, references, and education paragraph styling */
+.left-content .contact p,
+.left-content .references p,
+.left-content .education p {
+  margin-bottom: 19px;
+  font-size: 14px;
+}
+
+/* Right content styling */
+.right-content {
+  width: 550px;
+  padding: 70px;
+  text-align: left;
+  color: #444; /* Darker text for better readability */
+  position: relative;
+  padding-left: 60px; /* Add padding from the left side to make space for the line */
+}
+
+/* Name section styling */
+.right-content .name {
+  background-color: #DCDCDC; /* Light background color */
+  padding: 20px;
+  width: 100%; /* Make the background span the full width of right-content */
+  margin-left: 0; /* Ensure no margin on the left */
+  margin-bottom: 20px; /* Add space below for separation */
+}
+
+.right-content .name h1 {
+  font-size: 45px;
+  color: #333; /* Main name color */
+  margin-right: 10px; /* Space between name and job title */
+}
+
+.right-content .name h1 span {
+  color: #ffa500; /* Highlight the middle name with orange */
+}
+
+.right-content .name p {
+  font-size: 18px;
+  color: #888; /* Lighter color for job title */
+  margin-top: 5px;
+}
+
+/* Job experience section styling */
+.right-content h1 {
+  color: #333;
+  font-size: 30px;
+  font-size: 45px;
+}
+
+.right-content h2,
+.right-content h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.right-content span {
+  color: #ffa500;
+}
+
+.right-content section {
+  margin-bottom: 40px;
+}
+
+/* Job experience title and dates alignment */
+.right-content .experience h3 {
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  margin-bottom: 5px; /* Adds space below the job title */
+}
+
+.right-content .experience h3 span {
+  margin-left: 20px; 
+  color: black;
+}
+
+/* Skills section list styling */
+.right-content .skills ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.right-content .skills li {
+  margin: 10px 0;
+}
+
+.right-content .skills li:before {
+  color: #ffa500; /* Icon color */
+  margin-right: 10px;
+}
+
+/* Icon styling */
+i {
+  margin-right: 10px;
+  color: #ffa500; 
+}
+
+/* Job description paragraph styling */
+.right-content .experience p {
+  margin-bottom: 15px; 
+  margin-left: 0;
+}
+
+.right-content .skills li {
+  margin-left: 20px;
+}
+
+/* Vertical line with orange dots on the left side of the right content */
+.vertical-line {
+  position: absolute;
+  top: 0;
+  left: 880px; 
+  height: 100%;
+  width: 3px;
+  background-color: #444; 
+  z-index: 1;
+}
+
+/* Orange dot styling along the vertical line */
+.dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #ffa500; 
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot:nth-child(1) {
+  top: 11%;
+}
+
+.dot:nth-child(2) {
+  top: 24%;
+}
+
+.dot:nth-child(3) {
+  top: 38%;
+}
+
+.dot:nth-child(4) {
+  top: 43%;
+}
+
+.dot:nth-child(5) {
+  top: 53.6%;
+}
+
+.dot:nth-child(6) {
+  top: 64.4%;
+}
+
+.dot:nth-child(7) {
+  top: 78.9%;
+}
