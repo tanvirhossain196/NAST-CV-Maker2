@@ -1,0 +1,60 @@
+/* ============================================== 
+            initial design starts here 
+============================================== */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+/* initial design ends here  */
+
+/* ============================================== 
+            mainDiv design starts here 
+============================================== */
+
+#loginDiv{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mainDiv{
+    border: 1.5px solid #dddddd;
+    padding: 20px 100px;
+    border-radius: 10px;
+}
+
+#mainDiv:hover{
+    box-shadow: 3px 3px 4px gray;
+}
+
+
+#logo{
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+#loginButton{
+    width: 100%;
+}
+
+#createNewAccount{
+    text-align: center;
+}
+
+#createButton{
+    display: block ;
+    margin: 0 auto;
+}
+
+
+/* mainDiv design ends here  */

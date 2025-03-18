@@ -1,0 +1,66 @@
+/* ============================================== 
+            initial design starts here 
+============================================== */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+
+/* initial design ends here  */
+
+
+/* ============================================== 
+            main design starts here 
+============================================== */
+
+#mainDiv{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    padding: 5%;
+
+    border: 1px solid red;
+    flex-direction: column;
+}
+
+/* #forgetPassDiv{
+    border: 1px solid blue;
+} */
+
+
+#logoDiv{
+    display: flex ;
+    justify-content: center;
+    margin: 20px;
+}
+
+#logo{
+    width: 150px;
+    border-radius: 50%;
+}
+
+#forBorder{
+    border: 1.5px solid #dddddd;
+    padding: 10px 75px;
+    border-radius: 10px;
+}
+
+#forBorder:hover{
+    box-shadow: 3px 3px 4px gray;
+}
+
+#buttonDiv button{
+    display: block;
+    margin: 0 auto;
+}
+
+/* main design ends here  */
+

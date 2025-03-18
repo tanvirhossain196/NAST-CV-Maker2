@@ -1,0 +1,95 @@
+/* initial design  */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+/* main design  */
+
+#bodyDiv{
+    background-color: #ebdef0;
+    padding: 2%;
+}
+
+#mainDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#mainDiv #leftDiv,#mainDiv #rightDiv{
+    flex: 50%;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 3px 3px 5px #ddd;
+    border-radius: 20px;
+    height: 92vh;
+    overflow: scroll;
+}
+
+#personalInfo{
+    background-color: antiquewhite;
+    padding: 10px;
+    margin-bottom: 35px;
+}
+
+#resultDiv{
+    padding: 10px;
+    margin: 25px 0px;
+    background-color: #d7bde2;
+}
+
+#skillInfoDiv{
+    background-color: rgb(206, 242, 241);
+    padding: 10px;
+    margin-bottom: 35px;
+}
+
+#personalInfo2{
+    text-align: center;
+    padding: 5px 0px;
+    background-color: #eaecee;
+    margin-bottom: 8px;
+    border-radius: 10px;
+
+}
+
+#moreSkillButton{
+    width: 40%;
+    margin: 0 auto ;
+}
+
+#personalInfo2 p{
+    font-weight: bold;
+}
+
+#email2 , #mobile2 , #linkedLink2 {
+    margin: 10px;
+    font-weight: normal;
+}
+
+#hobbyDiv{
+    padding: 10px;
+    margin: 35px 0px;
+    background-color: #d6eaf8;
+}
+
+
+@media screen and (max-width : 600px)
+{
+    #mainDiv{
+        flex-direction: column;
+    }
+
+    #rightDiv , #leftDiv{
+        width: 95%; 
+        margin: 15px 0px;
+        /* padding: 10px; */
+    }
+}

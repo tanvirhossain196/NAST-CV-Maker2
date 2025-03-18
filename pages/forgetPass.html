@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>NAST CV</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="cv making">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <link rel="stylesheet" href="/forgetPass.css">
+</head>
+
+<body>
+    <div id="bodyDiv" class="container-fluid">
+        <header></header>
+
+        <main>
+            <section id="mainSec">
+                <div id="mainDiv">
+                    <div id="forBorder">
+                        <div id="logoDiv">
+                            <img id="logo" src="/logo.jpg" alt="LogoMissing">
+                        </div>
+
+                        <div id="forgetPassDiv">
+                            <form action="" method="post">
+
+                                <div id="emailDiv">
+                                    <label for="email">Enter your email: </label>
+                                    <input placeholder="xyz0123@gmail.com" type="email" name="email" id="email"
+                                        required>
+                                </div>
+
+                                <div id="passwordDiv">
+                                    <label for="newPassword">Enter a new password: </label>
+                                    <input placeholder="a-zA-Z0-9*/" type="password" name="newPassword" id="newPassword"
+                                        required>
+                                </div>
+
+                                <div id="passwordDiv2">
+                                    <label for="confirmPassword">Re-enter the password: </label>
+                                    <input placeholder="a-zA-Z0-9*/" type="password" name="confirmPassword"
+                                        id="confirmPassword" required>
+                                </div>
+
+                                <div id="buttonDiv">
+                                    <button onclick="window.location.href=`/login`" type="submit" id="resetButton" class="button">Reset Password</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer></footer>
+    </div>
+
+    <!-- bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+    <!-- myJS -->
+    <!-- <script src="/forgetPassJS.js"></script> -->
+
+</body>
+
+</html>

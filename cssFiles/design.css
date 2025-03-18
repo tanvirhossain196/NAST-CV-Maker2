@@ -1,0 +1,114 @@
+/* initial code  */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #eafaf1;
+}
+
+html{
+    scroll-behavior: smooth;
+   
+}
+
+/* header design start  */
+
+#leftDiv{
+    margin-top: 15vh;
+}
+
+#rightDiv #cvSS{
+    width: 100%;
+    /* height: 80vh; */
+}
+
+#logo{
+    width: 100px;
+    border-radius: 50%;
+
+}
+
+#secondHome{
+    margin: 10% 0%;
+    padding: 1%;
+}
+
+.bigTitle{
+    font-size: 60px;
+}
+
+#logoLink{
+    font-size: 30px;
+    font-weight: bold;
+    color: purple;
+}
+
+#logoLink:hover{
+    text-decoration: none;
+}
+
+.card{
+    border: 0.5px solid #ddd;
+    box-shadow: 2px 2px 3px #ddd;
+    transition: 0.4s;
+}
+
+.card:hover{
+    transform: scale(1.1);
+}
+
+.card-title{
+    text-align: center;
+}
+
+.media{
+    padding: 2%;
+}
+
+.media-image{
+    /* margin-right: 15px; */
+    width: 40%;
+    border-radius: 30px;
+}
+
+.media-body{
+    padding: 0% 5%;
+    margin-top: 9%;
+}
+
+@media screen and (max-width : 800px){
+    
+    .card{
+        margin-bottom: 10%;
+        background-color: blue;
+    }
+
+    .media{
+        margin: 2%;
+    }
+
+    #logoLink{
+        display: block;
+        margin: 0 auto;
+    }
+
+    #headerDiv div{
+        margin: 2% auto;
+    }
+
+    #leftDiv .btn{
+        margin-bottom: 5%;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
