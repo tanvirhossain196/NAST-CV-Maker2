@@ -1,3 +1,4 @@
+// initial code
 "use strict";
 console.clear();
 
@@ -7,8 +8,7 @@ let app = require("./app");
 let chalk = require("chalk");
 const { connectDB } = require("./model/user.model");
 
-// Declare the port variable only once
-let port = process.env.PORT || 3000;
+let port = 3000;
 
 app.listen(port, async function () {
   console.log(

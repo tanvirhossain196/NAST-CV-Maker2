@@ -1,4 +1,3 @@
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,15 +5,302 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
-  background-color: #f7f7f7;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #c0c0c0;
+}
+
+#navbar {
+  width: 10%;
+  background-color: white; /* Navbar background color */
+  padding: 35px;
+  margin-top: 30px;
+  margin-left: 3%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 10%;
+}
+
+#navbar a {
+  padding: 12px;
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px; /* Spacing between the links */
+  transition: background-color 0.3s ease;
+}
+
+#navbar a:hover {
+  background-color: #387c39; /* Darker shade when hovered */
+}
+
+#navbar a.active {
+  background-color: #387c39; /* Darker shade for active link */
+}
+
+.left-sidebar {
+  width: 35%;
+  background-color: white;
+  margin-top: 120px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 810px;
+  overflow-y: auto;
+}
+
+.right-content {
+  width: 55%;
+  padding: 45px;
+  margin-top: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-right: 1%;
+  height: 900px;
+  overflow-y: auto;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+h4 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #e9eaec;
+  font-size: 16px;
   color: #333;
 }
 
-/* Main Container */
-.container {
+input:focus {
+  outline: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.add-btn {
+  background-color: gray;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  min-width: 150px; /* Ensure buttons have a minimum width */
+  text-align: center;
+}
+
+.personal-info-buttons {
+  display: flex; /* Use flexbox to align the buttons in a row */
+  flex-wrap: wrap; /* Allow wrapping if there are many buttons */
+  gap: 10px; /* Add some space between buttons */
+  margin-top: 10px; /* Add top margin for better spacing */
+}
+
+.add-btn:hover {
+  background-color: #a9a9a9;
+}
+
+.add-btn:hover {
+  background-color: #a9a9a9;
+}
+
+.save-btn,
+.cancel-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+/* Button Box */
+.button-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.file-input-btn input {
+  display: none;
+}
+
+/* Layout for the input fields */
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-row > .input-group {
+  width: 48%;
+}
+
+.input-group input {
+  width: 100%;
+}
+
+/* For shorting the Full Name and Job Title fields */
+.short-input {
+  width: 70%;
+}
+
+/* Style for the Resume and Download Row */
+
+.resume-download-box {
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  width: 32.6%; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 13px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-left: 13.7%;
+  border-radius: 10px;
+  z-index: 1000; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resume-download-box h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.resume-download-box .download-btn {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.resume-download-box .download-btn:hover {
+  background-color: #45a049;
+}
+
+/* Styling for file input button */
+.file-input-btn {
+  width: 60px; 
+  height: 60px; 
+  background-color: #4caf50;
+  border: none;
+  border-radius: 50%; 
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; 
+}
+
+.file-input-btn::-webkit-file-upload-button {
+  visibility: hidden; /* Hide default file button */
+}
+
+#resumeName {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+}
+
+#editIcon {
+  color: #888;
+}
+
+#resumeName[contenteditable="true"] {
+  border: 1px solid #ddd;
+  padding: 2px 5px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 18px;
+}
+
+#resumeName[contenteditable="true"]:focus {
+  border-color: #4caf50;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Templete 2 Style */
+
+.temp-container {
   width: 1000px;
-  height: 1330px;
+  height: 1250px;
   margin: 30px auto;
   padding: 30px;
   background-color: #ffffff;
@@ -214,6 +500,4 @@ ul li {
 
 .job-duration .dates {
   font-style: italic;  
-
-
-
+}
