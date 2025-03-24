@@ -177,6 +177,9 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonElement.style.display = "inline-flex";
       }
       sectionForm.remove();
+
+      // Also remove the corresponding section from the template
+      removeSectionFromTemplate(sectionType);
     });
 
     // Assemble the form
@@ -200,6 +203,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Hide the button
     buttonElement.style.display = "none";
+  }
+
+  // Function to remove a section from the template
+  function removeSectionFromTemplate(sectionType) {
+    let sectionIcon;
+
+    switch (sectionType) {
+      case "Objective":
+        sectionIcon = "fa-bullseye";
+        break;
+      case "Professional Experience":
+        sectionIcon = "fa-briefcase";
+        break;
+      case "Education":
+        sectionIcon = "fa-graduation-cap";
+        break;
+      case "Skills":
+        sectionIcon = "fa-tools";
+        break;
+      case "Languages":
+        sectionIcon = "fa-language";
+        break;
+      case "Hobbies":
+        sectionIcon = "fa-heart";
+        break;
+      case "Personal Quality":
+        sectionIcon = "fa-star";
+        break;
+    }
+
+    // Find the section title in the template
+    const sectionTitle = document.querySelector(
+      `.template-section-title i.fa-solid.${sectionIcon}`
+    );
+
+    if (sectionTitle) {
+      const titleElement = sectionTitle.closest(".template-section-title");
+
+      // Remove the title and all content until the next section title
+      let currentElement = titleElement;
+      const nextSectionTitle = titleElement.nextElementSibling;
+
+      // If there's a next section title, remove everything in between
+      if (
+        nextSectionTitle &&
+        nextSectionTitle.classList.contains("template-section-title")
+      ) {
+        while (currentElement && currentElement !== nextSectionTitle) {
+          const elementToRemove = currentElement;
+          currentElement = currentElement.nextElementSibling;
+          elementToRemove.remove();
+        }
+      } else {
+        // If no next section title, remove this and all subsequent elements
+        while (currentElement) {
+          const elementToRemove = currentElement;
+          currentElement = currentElement.nextElementSibling;
+          elementToRemove.remove();
+        }
+      }
+    }
   }
 
   // Create fields for a single entry based on section type
@@ -431,7 +495,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Update section in template for simple text sections
   function updateSection(sectionType, content) {
-    // Rest of the function remains the same
     let sectionTitle, sectionIcon;
 
     switch (sectionType) {
@@ -451,8 +514,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Find or create the section
     let section = document.querySelector(
-      `.template-section-title:has(i.fa-${sectionIcon})`
+      `.template-section-title i.fa-solid.${sectionIcon}`
     );
+
+    if (section) {
+      section = section.closest(".template-section-title");
+    }
 
     if (!section) {
       // Create new section if it doesn't exist
@@ -469,29 +536,287 @@ document.addEventListener("DOMContentLoaded", function () {
       templateContainer.appendChild(paragraph);
     }
 
-    // Update content
-    const paragraph = section.nextElementSibling;
+    // Update content - first check if paragraph already exists
+    let paragraph = section.nextElementSibling;
     if (paragraph && paragraph.tagName === "P") {
       paragraph.textContent = content;
+    } else {
+      // Create paragraph if it doesn't exist
+      paragraph = document.createElement("p");
+      paragraph.textContent = content;
+      section.parentNode.insertBefore(paragraph, section.nextSibling);
     }
   }
 
-  // The rest of the updateExperienceSection, updateEducationSection etc. functions remain unchanged
-  // These would be defined in your original code
+  // Update Professional Experience section in template
   function updateExperienceSection(entries) {
-    // Your existing implementation would go here
+    const sectionTitle = "PROFESSIONAL EXPERIENCE";
+    const sectionIcon = "fa-briefcase";
+
+    // Find or create section title
+    let section = document.querySelector(
+      `.template-section-title i.fa-solid.${sectionIcon}`
+    );
+
+    if (section) {
+      section = section.closest(".template-section-title");
+    }
+
+    if (!section) {
+      section = document.createElement("h2");
+      section.className = "template-section-title";
+      section.innerHTML = `<i class="fa-solid ${sectionIcon}"></i> ${sectionTitle}`;
+
+      // Find appropriate place to insert
+      const templateContainer = document.querySelector(".template-container");
+      templateContainer.appendChild(section);
+    }
+
+    // Remove existing experience entries
+    let nextElement = section.nextElementSibling;
+    while (
+      nextElement &&
+      !nextElement.classList.contains("template-section-title")
+    ) {
+      const elementToRemove = nextElement;
+      nextElement = nextElement.nextElementSibling;
+      elementToRemove.remove();
+    }
+
+    // Create and add new experience entries
+    entries.forEach((entry) => {
+      if (entry.length >= 3) {
+        const jobTitle = entry[0];
+        const duration = entry[1];
+        const description = entry[2];
+
+        // Create job title element
+        const titleElement = document.createElement("h3");
+        titleElement.className = "template-experience-title";
+        titleElement.textContent = jobTitle;
+
+        // Create duration element
+        const durationElement = document.createElement("div");
+        durationElement.className = "template-experience-duration";
+        durationElement.textContent = duration;
+
+        // Create description element
+        const descriptionElement = document.createElement("p");
+        descriptionElement.className = "template-experience-description";
+        descriptionElement.textContent = description;
+
+        // Add elements to template
+        section.parentNode.insertBefore(titleElement, nextElement);
+        section.parentNode.insertBefore(durationElement, nextElement);
+        section.parentNode.insertBefore(descriptionElement, nextElement);
+      }
+    });
   }
 
+  // Update Education section in template
   function updateEducationSection(entries) {
-    // Your existing implementation would go here
+    const sectionTitle = "EDUCATION";
+    const sectionIcon = "fa-graduation-cap";
+
+    // Find or create section title
+    let section = document.querySelector(
+      `.template-section-title i.fa-solid.${sectionIcon}`
+    );
+
+    if (section) {
+      section = section.closest(".template-section-title");
+    }
+
+    if (!section) {
+      section = document.createElement("h2");
+      section.className = "template-section-title";
+      section.innerHTML = `<i class="fa-solid ${sectionIcon}"></i> ${sectionTitle}`;
+
+      // Find appropriate place to insert
+      const templateContainer = document.querySelector(".template-container");
+      templateContainer.appendChild(section);
+    }
+
+    // Remove existing education entries
+    let nextElement = section.nextElementSibling;
+    while (
+      nextElement &&
+      !nextElement.classList.contains("template-section-title")
+    ) {
+      const elementToRemove = nextElement;
+      nextElement = nextElement.nextElementSibling;
+      elementToRemove.remove();
+    }
+
+    // Create and add new education entries
+    entries.forEach((entry) => {
+      if (entry.length >= 3) {
+        const degree = entry[0];
+        const duration = entry[1];
+        const institution = entry[2];
+        const grades = entry.length > 3 ? entry[3] : "";
+        const location = entry.length > 4 ? entry[4] : "";
+
+        // Create education container
+        const educationContainer = document.createElement("div");
+        educationContainer.className = "template-education-entry";
+
+        // Create degree element
+        const degreeElement = document.createElement("h3");
+        degreeElement.className = "template-education-degree";
+        degreeElement.textContent = degree;
+
+        // Create institution element
+        const institutionElement = document.createElement("div");
+        institutionElement.className = "template-education-institution";
+        institutionElement.textContent = institution;
+
+        // Create duration element
+        const durationElement = document.createElement("div");
+        durationElement.className = "template-education-duration";
+        durationElement.textContent = duration;
+
+        // Create grades element if provided
+        let gradesElement;
+        if (grades) {
+          gradesElement = document.createElement("div");
+          gradesElement.className = "template-education-grades";
+          gradesElement.textContent = grades;
+        }
+
+        // Create location element if provided
+        let locationElement;
+        if (location) {
+          locationElement = document.createElement("div");
+          locationElement.className = "template-education-location";
+          locationElement.textContent = location;
+        }
+
+        // Add elements to container
+        educationContainer.appendChild(degreeElement);
+        educationContainer.appendChild(institutionElement);
+        educationContainer.appendChild(durationElement);
+        if (grades) educationContainer.appendChild(gradesElement);
+        if (location) educationContainer.appendChild(locationElement);
+
+        // Add container to template
+        section.parentNode.insertBefore(educationContainer, nextElement);
+      }
+    });
   }
 
+  // Update Skills section in template
   function updateSkillsSection(entries) {
-    // Your existing implementation would go here
+    const sectionTitle = "SKILLS";
+    const sectionIcon = "fa-tools";
+
+    // Find or create section title
+    let section = document.querySelector(
+      `.template-section-title i.fa-solid.${sectionIcon}`
+    );
+
+    if (section) {
+      section = section.closest(".template-section-title");
+    }
+
+    if (!section) {
+      section = document.createElement("h2");
+      section.className = "template-section-title";
+      section.innerHTML = `<i class="fa-solid ${sectionIcon}"></i> ${sectionTitle}`;
+
+      // Find appropriate place to insert
+      const templateContainer = document.querySelector(".template-container");
+      templateContainer.appendChild(section);
+    }
+
+    // Remove existing skills entries
+    let nextElement = section.nextElementSibling;
+    while (
+      nextElement &&
+      !nextElement.classList.contains("template-section-title")
+    ) {
+      const elementToRemove = nextElement;
+      nextElement = nextElement.nextElementSibling;
+      elementToRemove.remove();
+    }
+
+    // Create skills list
+    const skillsList = document.createElement("ul");
+    skillsList.className = "template-skills-list";
+
+    // Add each skill to the list
+    entries.forEach((entry) => {
+      if (entry.length >= 2) {
+        const category = entry[0];
+        const specificSkills = entry[1];
+
+        const skillItem = document.createElement("li");
+        skillItem.className = "template-skill-item";
+        skillItem.innerHTML = `<strong>${category}:</strong> ${specificSkills}`;
+
+        skillsList.appendChild(skillItem);
+      }
+    });
+
+    // Add list to template
+    section.parentNode.insertBefore(skillsList, nextElement);
   }
 
+  // Update Languages section in template
   function updateLanguagesSection(entries) {
-    // Your existing implementation would go here
+    const sectionTitle = "LANGUAGES";
+    const sectionIcon = "fa-language";
+
+    // Find or create section title
+    let section = document.querySelector(
+      `.template-section-title i.fa-solid.${sectionIcon}`
+    );
+
+    if (section) {
+      section = section.closest(".template-section-title");
+    }
+
+    if (!section) {
+      section = document.createElement("h2");
+      section.className = "template-section-title";
+      section.innerHTML = `<i class="fa-solid ${sectionIcon}"></i> ${sectionTitle}`;
+
+      // Find appropriate place to insert
+      const templateContainer = document.querySelector(".template-container");
+      templateContainer.appendChild(section);
+    }
+
+    // Remove existing language entries
+    let nextElement = section.nextElementSibling;
+    while (
+      nextElement &&
+      !nextElement.classList.contains("template-section-title")
+    ) {
+      const elementToRemove = nextElement;
+      nextElement = nextElement.nextElementSibling;
+      elementToRemove.remove();
+    }
+
+    // Create languages list
+    const languagesList = document.createElement("ul");
+    languagesList.className = "template-languages-list";
+
+    // Add each language to the list
+    entries.forEach((entry) => {
+      if (entry.length >= 2) {
+        const language = entry[0];
+        const proficiency = entry[1];
+
+        const languageItem = document.createElement("li");
+        languageItem.className = "template-language-item";
+        languageItem.innerHTML = `<strong>${language}:</strong> ${proficiency}`;
+
+        languagesList.appendChild(languageItem);
+      }
+    });
+
+    // Add list to template
+    section.parentNode.insertBefore(languagesList, nextElement);
   }
 
   // Add CSS styles for the multi-field forms with improved positioning
@@ -585,6 +910,77 @@ document.addEventListener("DOMContentLoaded", function () {
       .add-more-btn:hover {
         background-color: #e8e8e8;
       }
+      
+      /* Template styles */
+      .template-experience-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      
+      .template-experience-duration {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 5px;
+        font-style: italic;
+      }
+      
+      .template-experience-description {
+        font-size: 14px;
+        margin-bottom: 15px;
+        color: #333;
+      }
+      
+      .template-education-entry {
+        margin-bottom: 15px;
+      }
+      
+      .template-education-degree {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      
+      .template-education-institution {
+        font-size: 15px;
+        color: #333;
+        margin-bottom: 3px;
+      }
+      
+      .template-education-duration {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 3px;
+        font-style: italic;
+      }
+      
+      .template-education-grades {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 3px;
+      }
+      
+      .template-education-location {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 3px;
+      }
+      
+      .template-skills-list,
+      .template-languages-list {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 15px;
+      }
+      
+      .template-skill-item,
+      .template-language-item {
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #333;
+      }
     `;
     document.head.appendChild(style);
   }
@@ -604,6 +1000,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Languages",
         "Hobbies",
         "Personal Quality",
+        // Completion of the code from paste.txt
       ].forEach((sectionType) => {
         removeInitialInputField(sectionType);
       });
@@ -651,4 +1048,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Run initialization
   init();
+
+  // Add global access to update functions for integration with other scripts
+  window.updateSection = updateSection;
+  window.updateExperienceSection = updateExperienceSection;
+  window.updateEducationSection = updateEducationSection;
+  window.updateSkillsSection = updateSkillsSection;
+  window.updateLanguagesSection = updateLanguagesSection;
+  window.removeSectionFromTemplate = removeSectionFromTemplate;
+
+  // Integration with window.templateFunctions if it exists
+  if (window.templateFunctions) {
+    const originalUpdateTemplate = window.templateFunctions.updateTemplate;
+
+    // Extend the original updateTemplate function to also update sections
+    window.templateFunctions.updateTemplate = function () {
+      // Call the original function first
+      if (typeof originalUpdateTemplate === "function") {
+        originalUpdateTemplate();
+      }
+
+      // Then update any sections that might be affected
+      const sectionForms = document.querySelectorAll(".section-form");
+      sectionForms.forEach((form) => {
+        const sectionType = form.dataset.sectionType;
+        if (!sectionType) return;
+
+        if (
+          ["Objective", "Hobbies", "Personal Quality"].includes(sectionType)
+        ) {
+          const textarea = form.querySelector("textarea");
+          if (textarea) {
+            updateSection(sectionType, textarea.value);
+          }
+        } else {
+          const entriesContainer = form.querySelector(".entries-container");
+          if (entriesContainer) {
+            const entryValues = collectEntryValues(entriesContainer);
+            updateSectionData(sectionType, entryValues);
+          }
+        }
+      });
+    };
+  }
 });

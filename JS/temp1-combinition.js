@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Store the source button ID
     fieldGroup.dataset.sourceButton = sourceButtonId;
+    fieldGroup.dataset.fieldType = labelText; // Store field type
 
     // Create delete button
     const deleteBtn = document.createElement("button");
@@ -164,6 +165,22 @@ document.addEventListener("DOMContentLoaded", function () {
           sourceButton.style.display = "inline-flex";
         }
       }
+
+      // Remove from customFields if exists
+      if (window.templateFunctions && window.templateFunctions.customFields) {
+        if (
+          window.templateFunctions.customFields.personal &&
+          window.templateFunctions.customFields.personal[labelText]
+        ) {
+          delete window.templateFunctions.customFields.personal[labelText];
+
+          // Update the template
+          if (window.templateFunctions.updateTemplate) {
+            window.templateFunctions.updateTemplate();
+          }
+        }
+      }
+
       fieldGroup.remove();
     });
 
@@ -185,6 +202,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const buttonId = "add-btn-" + cleanText.toLowerCase().replace(/\s+/g, "-");
     button.id = buttonId;
   });
+
+  // Target buttons that need special handling for template updates
+  const targetButtons = [
+    "Date of Birth",
+    "Nationality",
+    "Marital status",
+    "Gender/Pronoun",
+    "Gender",
+  ];
 
   // Handle Personal Information and Links buttons
   allAddButtons.forEach((button) => {
@@ -221,6 +247,9 @@ document.addEventListener("DOMContentLoaded", function () {
           break;
         case "Gender/Pronoun":
           placeholder = "Enter gender/pronoun";
+          break;
+        case "Gender":
+          placeholder = "Enter gender";
           break;
         case "Visa":
           placeholder = "Enter visa details";
@@ -280,10 +309,175 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
+      // Special handling for target buttons (Date of Birth, Nationality, etc.)
+      if (targetButtons.includes(buttonText)) {
+        const input = fieldGroup.querySelector(".form-input");
+
+        // Add custom input handler to ensure template updates
+        input.addEventListener("input", function () {
+          // Use multiple methods to ensure the template updates
+
+          // Method 1: Add to customFields and update template
+          if (
+            window.templateFunctions &&
+            window.templateFunctions.customFields
+          ) {
+            // Store value in customFields
+            window.templateFunctions.customFields.personal[buttonText] =
+              this.value;
+
+            // Call template update functions
+            if (window.templateFunctions.updateTemplate) {
+              window.templateFunctions.updateTemplate();
+            }
+          }
+
+          // Method 2: Direct DOM update as a backup
+          if (
+            !window.templateFunctions ||
+            !window.templateFunctions.updateTemplate
+          ) {
+            updatePersonalInfoInTemplate(buttonText, this.value);
+          }
+        });
+      }
+
       // Hide the button
       this.style.display = "none";
     });
   });
+
+  // Function to directly update personal info in the template
+  function updatePersonalInfoInTemplate(fieldType, value) {
+    const personalInfoContainer = document.querySelector(
+      ".template-personal-info"
+    );
+    if (!personalInfoContainer) return;
+
+    // Find any existing item for this field type
+    let existingItem = null;
+    const items = personalInfoContainer.querySelectorAll(
+      ".template-contact-item"
+    );
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      // Try to determine if this is the correct item
+      // Using various checks to handle different setups
+      const icon = item.querySelector("i");
+      const iconMatches =
+        icon && iconMatchesFieldType(icon.className, fieldType);
+      const span = item.querySelector("span");
+
+      if (iconMatches) {
+        existingItem = item;
+        break;
+      }
+    }
+
+    // Choose appropriate icon
+    let iconClass = "fa-info-circle"; // Default
+    switch (fieldType.toLowerCase()) {
+      case "date of birth":
+        iconClass = "fa-cake-candles";
+        break;
+      case "nationality":
+        iconClass = "fa-flag";
+        break;
+      case "marital status":
+        iconClass = "fa-heart";
+        break;
+      case "gender":
+      case "gender/pronoun":
+        iconClass = "fa-user";
+        break;
+      case "military service":
+        iconClass = "fa-shield-alt";
+        break;
+      case "passport or id":
+        iconClass = "fa-id-card";
+        break;
+      case "driving license":
+        iconClass = "fa-car";
+        break;
+      case "visa":
+        iconClass = "fa-passport";
+        break;
+    }
+
+    // Update or create item
+    if (value.trim() === "" && existingItem) {
+      // Remove if empty value
+      existingItem.remove();
+    } else if (value.trim() !== "") {
+      if (existingItem) {
+        // Update existing item
+        const span = existingItem.querySelector("span");
+        if (span) {
+          span.textContent = value;
+        }
+      } else {
+        // Create new item
+        const newItem = document.createElement("div");
+        newItem.className = "template-contact-item";
+        newItem.dataset.fieldType = fieldType;
+        newItem.innerHTML = `
+          <i class="fa-solid ${iconClass}"></i>
+          <span>${value}</span>
+        `;
+        personalInfoContainer.appendChild(newItem);
+      }
+    }
+  }
+
+  // Helper function to determine if an icon class matches a field type
+  function iconMatchesFieldType(iconClassName, fieldType) {
+    const fieldTypeLower = fieldType.toLowerCase();
+
+    if (
+      fieldTypeLower === "date of birth" &&
+      iconClassName.includes("fa-cake")
+    ) {
+      return true;
+    }
+    if (fieldTypeLower === "nationality" && iconClassName.includes("fa-flag")) {
+      return true;
+    }
+    if (
+      fieldTypeLower === "marital status" &&
+      iconClassName.includes("fa-heart")
+    ) {
+      return true;
+    }
+    if (
+      (fieldTypeLower === "gender" || fieldTypeLower === "gender/pronoun") &&
+      iconClassName.includes("fa-user")
+    ) {
+      return true;
+    }
+    if (
+      fieldTypeLower === "military service" &&
+      iconClassName.includes("fa-shield")
+    ) {
+      return true;
+    }
+    if (
+      fieldTypeLower === "passport or id" &&
+      iconClassName.includes("fa-id-card")
+    ) {
+      return true;
+    }
+    if (
+      fieldTypeLower === "driving license" &&
+      iconClassName.includes("fa-car")
+    ) {
+      return true;
+    }
+    if (fieldTypeLower === "visa" && iconClassName.includes("fa-passport")) {
+      return true;
+    }
+
+    return false;
+  }
 
   // Add styles
   const style = document.createElement("style");
