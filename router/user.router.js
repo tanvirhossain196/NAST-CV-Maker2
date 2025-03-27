@@ -18,6 +18,8 @@ const {
   postBuild,
   getTemplet1,
   getTemplet2,
+  about,
+  planpricing,
 } = require("../controller/user.controller");
 const {
   signupValidationRules,
@@ -44,6 +46,10 @@ route.get("/templet1", getTemplet1);
 route.get("/templet2", getTemplet2);
 
 route.get("/forgetpass", forgetpass);
+
+route.get("/about", about);
+
+route.get("/planpricing", planpricing);
 
 // export codes
 

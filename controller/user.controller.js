@@ -18,6 +18,16 @@ let getLogin = function (req, res) {
     .sendFile(path.join(__dirname, "..", "pages", "loginPage.html"));
 };
 
+let about = function (req, res) {
+  res.status(200).sendFile(path.join(__dirname, "..", "pages", "about.html"));
+};
+
+let planpricing = function (req, res) {
+  res
+    .status(200)
+    .sendFile(path.join(__dirname, "..", "pages", "plans-&-pricing.html"));
+};
+
 let postLogin = async function (req, res) {
   let givenEmail = req.body.email;
   let givenPassword = req.body.password;
@@ -148,4 +158,6 @@ module.exports = {
   forgetpass,
   getTemplet1,
   getTemplet2,
+  about,
+  planpricing,
 };
