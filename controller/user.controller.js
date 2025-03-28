@@ -18,6 +18,16 @@ let getLogin = function (req, res) {
     .sendFile(path.join(__dirname, "..", "pages", "loginPage.html"));
 };
 
+let about = function (req, res) {
+  res.status(200).sendFile(path.join(__dirname, "..", "pages", "about.html"));
+};
+
+let planpricing = function (req, res) {
+  res
+    .status(200)
+    .sendFile(path.join(__dirname, "..", "pages", "plans-&-pricing.html"));
+};
+
 let postLogin = async function (req, res) {
   let givenEmail = req.body.email;
   let givenPassword = req.body.password;
@@ -63,16 +73,18 @@ let postSignup = async function (req, res) {
   res.status(201).redirect("/login");
 };
 
-let getTemplet1 = function (req, res) {
-  res
-    .status(200)
-    .sendFile(path.join(__dirname, "..", "pages", "templet1.html"));
-};
+// template routes
 
 let getTemplet2 = function (req, res) {
   res
     .status(200)
     .sendFile(path.join(__dirname, "..", "pages", "templet2.html"));
+};
+
+let getTemplet3 = function (req, res) {
+  res
+    .status(200)
+    .sendFile(path.join(__dirname, "..", "pages", "templet3.html"));
 };
 
 // forget pass part
@@ -94,7 +106,9 @@ let getStarted = function (req, res) {
 // build cv part
 
 let build = function (req, res) {
-  res.status(200).sendFile(path.join(__dirname, "..", "pages", "form.html"));
+  res
+    .status(200)
+    .sendFile(path.join(__dirname, "..", "pages", "templet1.html"));
 };
 
 let postBuild = async function (req, res) {
@@ -146,6 +160,8 @@ module.exports = {
   build,
   postBuild,
   forgetpass,
-  getTemplet1,
   getTemplet2,
+  getTemplet3,
+  about,
+  planpricing,
 };

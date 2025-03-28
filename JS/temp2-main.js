@@ -74,61 +74,16 @@ document.addEventListener("DOMContentLoaded", function () {
     links: {},
   };
 
-  // ---------- IMAGE UPLOAD & RESIZE FUNCTIONALITY ----------
-  // Create and add resize controls
-  const resizeControlContainer = document.createElement("div");
-  resizeControlContainer.className = "resize-control-container";
-  resizeControlContainer.style.display = "none";
-
-  const resizeSlider = document.createElement("input");
-  resizeSlider.type = "range";
-  resizeSlider.min = "100";
-  resizeSlider.max = "200";
-  resizeSlider.value = "100";
-  resizeSlider.className = "resize-slider";
-
-  const resizeLabel = document.createElement("div");
-  resizeLabel.className = "resize-label";
-  resizeLabel.textContent = "Resize Image";
-
-  // Create confirm button
-  const confirmButton = document.createElement("button");
-  confirmButton.className = "resize-confirm-btn";
-  confirmButton.innerHTML = '<i class="fa-solid fa-check"></i> Confirm Size';
-
-  resizeControlContainer.appendChild(resizeLabel);
-  resizeControlContainer.appendChild(resizeSlider);
-  resizeControlContainer.appendChild(confirmButton);
-
-  // Insert after the profile upload container
-  const profileUpload = document.querySelector(".profile-upload");
-  profileUpload.parentNode.insertBefore(
-    resizeControlContainer,
-    profileUpload.nextSibling
-  );
-
-  // Variables to track image state
-  let currentImageScale = 1;
-  let currentImageUrl = "";
-  let confirmedScale = 1;
-
-  // Handle image upload
+  // Handle image upload - SIMPLIFIED VERSION WITHOUT RESIZE
   profileUploadInput.addEventListener("change", function (event) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
 
       reader.onload = function (e) {
-        // Store the image URL
-        currentImageUrl = e.target.result;
-
-        // Reset scale on new upload
-        currentImageScale = 1;
-        resizeSlider.value = 100;
-
         // Update profile image in the form
         const profileImage = document.getElementById("profile-image");
         if (profileImage) {
-          profileImage.src = currentImageUrl;
+          profileImage.src = e.target.result;
           profileImage.style.display = "block";
         }
         if (profilePlaceholder) {
@@ -146,14 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           // Show and update the actual image
-          templateProfileImage.src = currentImageUrl;
+          templateProfileImage.src = e.target.result;
           templateProfileImage.style.display = "block";
           templateProfileImage.style.width = "160px"; // Fixed width matching the circle
           templateProfileImage.style.height = "160px"; // Fixed height matching the circle
           templateProfileImage.style.objectFit = "cover";
           templateProfileImage.style.borderRadius = "50%";
-          templateProfileImage.style.transform = "scale(1)";
-          templateProfileImage.style.transformOrigin = "center center";
 
           // Ensure image is centered in the parent container
           const profileImgContainer = templateProfileImage.parentElement;
@@ -163,50 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
             profileImgContainer.style.alignItems = "center";
           }
         }
-
-        // Show resize controls
-        resizeControlContainer.style.display = "block";
       };
 
       reader.readAsDataURL(event.target.files[0]);
     }
   });
-
-  // Handle image resizing
-  resizeSlider.addEventListener("input", function () {
-    if (currentImageUrl) {
-      // Calculate scale based on slider value (100-200 becomes 1.0-2.0)
-      currentImageScale = parseInt(this.value) / 100;
-
-      // Apply scale transform to the template image
-      if (templateProfileImage) {
-        templateProfileImage.style.transform = `scale(${currentImageScale})`;
-      }
-    }
-  });
-
-  // Handle confirm button click
-  confirmButton.addEventListener("click", function (e) {
-    e.preventDefault(); // Prevent form submission if button is inside a form
-
-    // Hide resize controls after confirmation
-    resizeControlContainer.style.display = "none";
-
-    // Save the confirmed scale
-    confirmedScale = currentImageScale;
-
-    // Ensure the transformation is permanently applied to template image
-    if (templateProfileImage) {
-      templateProfileImage.style.transform = `scale(${confirmedScale})`;
-      // Store the confirmed scale in a data attribute for persistence
-      templateProfileImage.dataset.scale = confirmedScale;
-    }
-  });
-
-  // Ensure the confirmed scale persists if the template is rerendered
-  if (templateProfileImage && templateProfileImage.dataset.scale) {
-    templateProfileImage.style.transform = `scale(${templateProfileImage.dataset.scale})`;
-  }
 
   // Function to update template with input values
   function updateTemplate() {
@@ -565,6 +479,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const buttonId = "add-btn-" + cleanText.toLowerCase().replace(/\s+/g, "-");
     button.id = buttonId;
   });
+
+  // Rest of the code remains the same...
+  // [Include all the remaining functions like createSectionForm, updateSectionInTemplate, etc.]
 
   // Function to create section form with appropriate fields
   function createSectionForm(sectionType, buttonElement) {
@@ -1910,14 +1827,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Setup multiple fields handler integration
-  const originalUpdateSection = window.updateSection;
-  const originalUpdateExperienceSection = window.updateExperienceSection;
-  const originalUpdateEducationSection = window.updateEducationSection;
-  const originalUpdateSkillsSection = window.updateSkillsSection;
-  const originalUpdateLanguagesSection = window.updateLanguagesSection;
-
-  // Create and handle section forms with multiple entries
+  // Function to update section in template
   function updateSectionInTemplate(sectionType, content) {
     let sectionTitle, sectionIcon, selector;
 
@@ -1953,7 +1863,7 @@ document.addEventListener("DOMContentLoaded", function () {
         aboutSection.className = "about";
 
         section = document.createElement("h2");
-        section.innerHTML = `<i class="fas fa-${sectionIcon}"></i>${sectionTitle}`;
+        section.innerHTML = `<i class="fas fa-${sectionIcon}"></i> ${sectionTitle}`;
 
         aboutSection.appendChild(section);
 
@@ -2156,15 +2066,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Override the window.updateSection function if it exists
-  if (typeof window.updateSection === "function") {
-    window.updateSection = function (sectionType, content) {
-      if (originalUpdateSection) {
-        originalUpdateSection(sectionType, content);
-      }
-      updateSectionInTemplate(sectionType, content);
-    };
-  } else {
-    window.updateSection = updateSectionInTemplate;
-  }
+  // Expose functions to window for other scripts to use
+  window.updateSectionInTemplate = updateSectionInTemplate;
+  window.updateTemplate = updateTemplate;
 });

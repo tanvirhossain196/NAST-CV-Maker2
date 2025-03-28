@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // ---------- IMAGE UPLOAD & RESIZE FUNCTIONALITY ----------
+  // ---------- IMAGE UPLOAD FUNCTIONALITY ----------
   // Elements for profile image upload
   const profileUploadInput = document.getElementById("profile-upload-input");
   const profilePlaceholder = document.getElementById("profile-placeholder");
@@ -10,42 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "template-profile-placeholder"
   );
 
-  // Create and add resize controls
-  const resizeControlContainer = document.createElement("div");
-  resizeControlContainer.className = "resize-control-container";
-  resizeControlContainer.style.display = "none";
-
-  const resizeSlider = document.createElement("input");
-  resizeSlider.type = "range";
-  resizeSlider.min = "100";
-  resizeSlider.max = "200";
-  resizeSlider.value = "100";
-  resizeSlider.className = "resize-slider";
-
-  const resizeLabel = document.createElement("div");
-  resizeLabel.className = "resize-label";
-  resizeLabel.textContent = "Resize Image";
-
-  // Create confirm button
-  const confirmButton = document.createElement("button");
-  confirmButton.className = "resize-confirm-btn";
-  confirmButton.innerHTML = '<i class="fa-solid fa-check"></i> Confirm Size';
-
-  resizeControlContainer.appendChild(resizeLabel);
-  resizeControlContainer.appendChild(resizeSlider);
-  resizeControlContainer.appendChild(confirmButton);
-
-  // Insert after the profile upload container
-  const profileUpload = document.querySelector(".profile-upload");
-  profileUpload.parentNode.insertBefore(
-    resizeControlContainer,
-    profileUpload.nextSibling
-  );
-
   // Variables to track image state
-  let currentImageScale = 1;
   let currentImageUrl = "";
-  let confirmedScale = 1;
 
   // Handle image upload
   profileUploadInput.addEventListener("change", function (event) {
@@ -55,10 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
       reader.onload = function (e) {
         // Store the image URL
         currentImageUrl = e.target.result;
-
-        // Reset scale on new upload
-        currentImageScale = 1;
-        resizeSlider.value = 100;
 
         // Update template profile image
         templateProfileImage.src = currentImageUrl;
@@ -70,49 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
         templateProfileImage.style.height = "100%";
         templateProfileImage.style.objectFit = "cover";
         templateProfileImage.style.borderRadius = "50%";
-        templateProfileImage.style.transform = "scale(1)";
-        templateProfileImage.style.transformOrigin = "center center";
-
-        // Show resize controls
-        resizeControlContainer.style.display = "block";
       };
 
       reader.readAsDataURL(event.target.files[0]);
     }
   });
-
-  // Handle image resizing
-  resizeSlider.addEventListener("input", function () {
-    if (currentImageUrl) {
-      // Calculate scale based on slider value (100-200 becomes 1.0-2.0)
-      currentImageScale = parseInt(this.value) / 100;
-
-      // Apply scale transform to the image
-      templateProfileImage.style.transform = `scale(${currentImageScale})`;
-    }
-  });
-
-  // Handle confirm button click
-  confirmButton.addEventListener("click", function (e) {
-    e.preventDefault(); // Prevent form submission if button is inside a form
-
-    // Hide resize controls after confirmation
-    resizeControlContainer.style.display = "none";
-
-    // Save the confirmed scale
-    confirmedScale = currentImageScale;
-
-    // Ensure the transformation is permanently applied
-    templateProfileImage.style.transform = `scale(${confirmedScale})`;
-
-    // Store the confirmed scale in a data attribute for persistence
-    templateProfileImage.dataset.scale = confirmedScale;
-  });
-
-  // Ensure the confirmed scale persists if the template is rerendered
-  if (templateProfileImage.dataset.scale) {
-    templateProfileImage.style.transform = `scale(${templateProfileImage.dataset.scale})`;
-  }
 
   // ---------- DYNAMIC FORM FIELDS FUNCTIONALITY ----------
   // Helper function to create a field group with delete button
@@ -479,75 +403,23 @@ document.addEventListener("DOMContentLoaded", function () {
     return false;
   }
 
-  // Add styles
+  // Add styles for delete button only
   const style = document.createElement("style");
   style.textContent = `
-        .resize-control-container {
-            margin: 10px auto 20px;
-            text-align: center;
-            max-width: 300px;
-        }
-        .resize-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .resize-slider {
-            width: 100%;
-            cursor: pointer;
-            margin-bottom: 15px;
-            height: 5px;
-            background: #e0e0e0;
-            outline: none;
-            border-radius: 10px;
-            -webkit-appearance: none;
-        }
-        .resize-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #ff6384;
-            cursor: pointer;
-        }
-        .resize-slider::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #ff6384;
-            cursor: pointer;
-            border: none;
-        }
-        .resize-confirm-btn {
-            background-color: #ff6384;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 8px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .resize-confirm-btn i {
-            font-size: 16px;
-        }
-        .delete-field-btn {
-            position: absolute;
-            right: 10px;
-            top: 32px; /* Position aligned with input field */
-            background: none;
-            border: none;
-            color: #ff6384;
-            cursor: pointer;
-            font-size: 16px;
-            z-index: 10;
-        }
-        .delete-field-btn:hover {
-            color: #e63e6d;
-        }
-    `;
+    .delete-field-btn {
+        position: absolute;
+        right: 10px;
+        top: 32px; /* Position aligned with input field */
+        background: none;
+        border: none;
+        color: #ff6384;
+        cursor: pointer;
+        font-size: 16px;
+        z-index: 10;
+    }
+    .delete-field-btn:hover {
+        color: #e63e6d;
+    }
+  `;
   document.head.appendChild(style);
 });
