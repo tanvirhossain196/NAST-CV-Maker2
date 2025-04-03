@@ -607,10 +607,16 @@ header {
 }
 
 .footer-logo img {
+<<<<<<< HEAD
   width: 70px;
   height: 70px;
   margin-right: -5px;
   margin-left: -15px;
+=======
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+>>>>>>> 2485f8ada202932bbea13cf370d70f71b723b43f
   border-radius: 8px;
 }
 
@@ -770,7 +776,11 @@ header {
 .toggle-switch {
   position: relative;
   display: inline-block;
+<<<<<<< HEAD
   width: 90px;
+=======
+  width: 100px;
+>>>>>>> 2485f8ada202932bbea13cf370d70f71b723b43f
   height: 34px;
 }
 

@@ -1,5 +1,3 @@
-// initial code
-
 "use strict";
 console.clear();
 
@@ -29,9 +27,7 @@ let planpricing = function (req, res) {
 };
 
 let home = function (req, res) {
-  res
-    .status(200)
-    .sendFile(path.join(__dirname, "..", "pages", "index.html"));
+  res.status(200).sendFile(path.join(__dirname, "..", "pages", "index.html"));
 };
 
 let postLogin = async function (req, res) {
