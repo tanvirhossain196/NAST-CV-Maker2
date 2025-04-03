@@ -16,8 +16,11 @@ const {
   postSignup,
   postLogin,
   postBuild,
-  getTemplet1,
   getTemplet2,
+  getTemplet3,
+  about,
+  planpricing,
+  home,
 } = require("../controller/user.controller");
 const {
   signupValidationRules,
@@ -40,10 +43,17 @@ route.post("/signup", signupValidationRules, validationErrorHandle, postSignup);
 route.get("/build", build);
 route.post("/build", postBuild);
 
-route.get("/templet1", getTemplet1);
+// Template routes
 route.get("/templet2", getTemplet2);
+route.get("/templet3", getTemplet3);
 
 route.get("/forgetpass", forgetpass);
+
+route.get("/about", about);
+
+route.get("/planpricing", planpricing);
+
+route.get("/home", home);
 
 // export codes
 

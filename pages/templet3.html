@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Resume Builder</title>
+      <link rel="stylesheet" href="templet3.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+      <!-- Add html2pdf library for PDF generation -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+      <!-- Sidebar -->
+      <div class="sidebar">
+            <div class="logo">
+                  <img src="logo.jpg" alt="Logo" />
+            </div>
+
+            <div class="sidebar-item active">
+                  <div class="sidebar-icon">📝</div>
+                  <div class="sidebar-text">Content</div>
+            </div>
+
+            <div class="sidebar-item">
+                  <div class="sidebar-icon">🔧</div>
+                  <div class="sidebar-text">Customize</div>
+            </div>
+
+            <div class="sidebar-item">
+                  <div class="sidebar-icon">🔗</div>
+                  <div class="sidebar-text">Links</div>
+            </div>
+      </div>
+
+      <!-- Main Container -->
+      <div class="main-container">
+            <!-- Main Content with independent scrolling -->
+            <div class="main-content">
+                  <!-- Header remains fixed at the top -->
+                  <div class="header">
+                        <div class="resume-title">
+                              <strong>Resume 1</strong>
+                              <span class="verified-icon">✓</span>
+                        </div>
+                        <button class="download-btn">
+                              <strong>Download</strong>
+                              <span class="download-icon">⬇</span>
+                        </button>
+                  </div>
+
+                  <!-- Edit Personal Details -->
+                  <div class="edit-section">
+                        <div class="section-header">
+                              <div class="section-title">Edit personal details</div>
+                              <a href="#" class="help-link">
+                                    <span class="help-icon">📋</span>
+                                    Need help?
+                              </a>
+                        </div>
+
+                        <form>
+                              <!-- Profile Upload Section -->
+                              <div class="profile-upload">
+                                    <div class="profile-circle">
+                                          <img id="profile-image" src="" alt="Profile" style="display: none;">
+                                          <div id="profile-placeholder" class="profile-icon">
+                                                <i class="fa-solid fa-user" style="font-size: 40px; color: #aaa;"></i>
+                                          </div>
+                                          <label for="profile-upload-input" class="upload-btn">
+                                                <i class="fa-solid fa-camera"></i>
+                                          </label>
+                                          <input type="file" id="profile-upload-input" accept="image/*"
+                                                style="display: none;">
+                                    </div>
+                              </div>
+
+                              <!-- Resize controls will be inserted here by JavaScript -->
+
+                              <div class="form-group">
+                                    <label class="form-label">Full name</label>
+                                    <input type="text" class="form-input"
+                                          placeholder="Enter your title, first- and last name">
+                              </div>
+
+                              <div class="form-group">
+                                    <label class="form-label">Job title <span class="optional">optional</span></label>
+                                    <input type="text" class="form-input" placeholder="Enter Job title">
+                              </div>
+
+                              <div class="form-row">
+                                    <div class="form-col">
+                                          <div class="form-group">
+                                                <label class="form-label">Email <span
+                                                            class="recommended">recommended</span></label>
+                                                <input type="email" class="form-input" placeholder="Enter email">
+                                          </div>
+                                    </div>
+                                    <div class="form-col">
+                                          <div class="form-group">
+                                                <label class="form-label">Phone <span
+                                                            class="recommended">recommended</span></label>
+                                                <input type="tel" class="form-input" placeholder="Enter Phone">
+                                          </div>
+                                    </div>
+                              </div>
+
+                              <div class="form-group">
+                                    <label class="form-label">Address <span
+                                                class="recommended">recommended</span></label>
+                                    <input type="text" class="form-input" placeholder="City, Country">
+                              </div>
+
+                              <div class="section-label">Personal information</div>
+
+                              <div>
+                                    <button class="add-btn"><span class="add-icon">+</span> Date of Birth</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Nationality</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Marital status</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Gender</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Objective</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Professional
+                                          Experience</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Education</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Skills</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Languages</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Hobbies</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Personal Quality</button>
+                              </div>
+
+                              <div class="section-label">Links</div>
+
+                              <div>
+                                    <button class="add-btn"><span class="add-icon">+</span> Website</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> LinkedIn</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> GitHub</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Medium</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> ORCID</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Skype</button>
+                                    <button class="add-btn"><span class="add-icon">+</span> Bluesky</button>
+                                    <a href="#" class="view-all">View all</a>
+                              </div>
+
+                              <div class="button-row">
+                                    <button class="cancel-btn"><strong>Cancel</strong></button>
+                                    <button class="save-btn">
+                                          <span class="check-icon">✓</span>
+                                          <strong>Save</strong>
+                                    </button>
+                              </div>
+                        </form>
+                  </div>
+            </div>
+
+            <!-- Template Preview -->
+            <div class="template-preview">
+                  <div class="template-container">
+                        <div class="container">
+                              <header class="header">
+                                    <div class="profile-container">
+                                          <div class="profile-img-container">
+                                                <img src="temp-profile2.png" alt="Samantha Ingram" class="profile-img">
+                                          </div>
+                                          <div class="contact-info">
+                                                <h1>Md.Tanvir Hossain</h1>
+                                                <p class="role">Software Engineer</p>
+                                          </div>
+                                    </div>
+                                    <div class="contact-links">
+                                          <a href="cvonline.me/example16" target="_blank"><i class="fas fa-globe"></i>
+                                                cvonline.me/example16</a>
+                                          <a href="mailto:samanthaingram@gmail.com"><i class="fas fa-envelope"></i>
+                                                samanthaingram@gmail.com</a>
+                                          <a href="tel:+4407700070004"><i class="fas fa-phone"></i> +44 0770007 0004</a>
+                                    </div>
+                              </header>
+
+                              <div class="content-wrapper">
+                                    <!-- Left div for Career and Work Experience -->
+                                    <div class="left-div">
+                                          <section class="career">
+                                                <h2><i class="fas fa-briefcase"></i> About My Career</h2>
+                                                <p>I am a passionate archaeologist with 9 years of experience in
+                                                      excavations, research,
+                                                      and heritage consultancy. I am currently looking for new
+                                                      challenges abroad, and
+                                                      would be open to move.</p>
+                                          </section>
+
+                                          <section class="work-experience">
+                                                <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+                                                <div class="job">
+                                                      <h3><i class="fas fa-cogs"></i> Heritage Consultant</h3>
+                                                      <p class="job-duration">
+                                                            <strong class="company-name1">Wessex Archaeology</strong>
+                                                            <span class="dates">(07/2015 - Present)</span>
+                                                      </p>
+                                                      <p>Wessex Archaeology is a leading provider of heritage services
+                                                            to a range of
+                                                            sectors and clients across the UK.
+                                                            I worked on commercial heritage consultancy projects,
+                                                            undertook desk-based
+                                                            research, heritage planning
+                                                            guidance, and conservation policy, as well as assessed
+                                                            impacts to the setting
+                                                            and significance of heritage
+                                                            assets.</p>
+                                                </div>
+
+                                                <div class="job">
+                                                      <h3><i class="fas fa-cogs"></i> Junior Archaeologist</h3>
+                                                      <p class="job-duration">
+                                                            <strong class="company-name">Archaeology site of
+                                                                  Carthage</strong>
+                                                            <span class="dates">(10/2014 - 07/2015)</span>
+                                                      </p>
+                                                      <p>After having worked on Tunisia's famous archaeological site as
+                                                            a trainee in 2009,
+                                                            I had the great honor of
+                                                            being able to manage a discrete area of work, restoring some
+                                                            recently
+                                                            discovered hot springs.</p>
+                                                </div>
+
+                                                <div class="job">
+                                                      <h3><i class="fas fa-cogs"></i> English Speaking Guide</h3>
+                                                      <p class="job-duration">
+                                                            <strong class="company-name2">Mac Empúries</strong>
+                                                            <span class="dates">(06/2013 - 10/2014)</span>
+                                                      </p>
+                                                      <p>After having worked on Tunisia's famous archaeological site as
+                                                            a trainee in 2009,
+                                                            I had the great honor of
+                                                            being able to manage a discrete area of work, restoring some
+                                                            recently
+                                                            discovered hot springs.</p>
+                                                </div>
+
+                                                <div class="job">
+                                                      <h3><i class="fas fa-cogs"></i> Archaeology Trainee</h3>
+                                                      <p class="job-duration">
+                                                            <strong class="company-name">Archaeology site of
+                                                                  Carthage</strong>
+                                                            <span class="dates">(07/2009 - 09/2009)</span>
+                                                      </p>
+                                                      <p>My internship consisted of fieldwork, helping the District of
+                                                            TunisArchaeological
+                                                            staff on the restoration and maintenance work at the
+                                                            Archaeological Site of
+                                                            Carthage, which has been protected by the Unesco Heritage
+                                                            Program for Historic
+                                                            Monuments since 1985.</p>
+                                                </div>
+                                          </section>
+                                    </div>
+
+                                    <!-- Right div for Academic Background and Goals Achieved -->
+                                    <div class="right-div">
+                                          <section class="education">
+                                                <h2><i class="fas fa-graduation-cap"></i> Academic Background</h2>
+                                                <p><strong>Archaeology</strong> (2012 -2013) - UCL Institute of
+                                                      Archaeology</p>
+                                                <p><strong>Anthropology MRes</strong> (2007 - 2011) - University College
+                                                      London</p>
+                                                <p><strong>GCE Advanced Level</strong> (2000 - 2007) - North Bridge
+                                                      House Senior Canonbury
+                                                </p>
+                                          </section>
+
+                                          <section class="goals">
+                                                <h2><i class="fas fa-trophy"></i> Goals Achieved</h2>
+                                                <ul>
+                                                      <li>Along with the archaeologist team of the remains of Carthage,
+                                                            we reconstructed
+                                                            behavior patterns of the Carthaginians and Romans who
+                                                            populated the city.</li>
+                                                      <li>Advised the Ashmolean Museum in Oxford on the acquisition and
+                                                            conservation of
+                                                            Greek and Roman coins from the 3rd Century Before Christ.
+                                                      </li>
+                                                </ul>
+                                          </section>
+
+                                          <section class="skills">
+                                                <h2><i class="fas fa-tools"></i> Professional Skills</h2>
+                                                <ul>
+                                                      <li>Excavation</li>
+                                                      <li>Analysis & observation</li>
+                                                      <li>Preservation</li>
+                                                      <li>History</li>
+                                                      <li>Geophysics</li>
+                                                </ul>
+                                          </section>
+
+                                          <section class="personal-skills">
+                                                <h2><i class="fas fa-user-tie"></i> Personal Skills</h2>
+                                                <ul>
+                                                      <li>Organization</li>
+                                                      <li>Dedication</li>
+                                                      <li>Responsibility</li>
+                                                </ul>
+                                          </section>
+
+                                          <section class="languages">
+                                                <h2><i class="fas fa-language"></i> Languages</h2>
+                                                <p>French - Full Professional</p>
+                                                <p>Spanish - Full Professional</p>
+                                                <p>Arabic - Limited Working</p>
+                                                <p>English - Native or Bilingual</p>
+                                          </section>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <!-- Connect JavaScript files -->
+      <script src="temp3-main.js"></script>
+      <script src="profile-image-resizer.js"></script>
+</body>
+
+</html>
